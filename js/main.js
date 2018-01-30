@@ -21,6 +21,7 @@ var cards = [
   }
 ];
 
+//YOUR SCORE
 var updateScoreBoard = function () {
   scoreBoard.innerHTML = 'Your Score: <b>' + gameScore + '</b>';
 }
@@ -29,15 +30,12 @@ var updateScoreBoard = function () {
 var scoreBoard = document.createElement('div');
 var gameScore = 0;
 updateScoreBoard();
-//scoreBoard.style.backgroundColor = 'yellow';
 scoreBoard.className = 'scoreboard';
 var containerElement = document.querySelector('main');
 containerElement.insertBefore(scoreBoard, document.getElementById('game-board'));
-//console.log(containerElement.childNodes);
 
 
-
-
+//ALERT MESSAGE FUNCTIONS
 var correctMessage = function () {
   alert('You found a match!');
   gameScore++;
@@ -48,14 +46,10 @@ var incorrectMessage = function () {
   alert('Sorry, try again.');
 };
 
-
+//CHECK CARDS FOR MATCH AND CALL APPROPRIATE ALERTS
 var cardsInPlay = []; //references each card object (being in brackets)
-var domsInPlay = []; //references DOM object of each image (cardElement)
 
 var checkForMatch = function (cardId) {
-  //console.log(this);
-  //console.log(cardsInPlay);
-  //console.log(domsInPlay);
   if (cardsInPlay[0] === cardsInPlay[1]) {
     return;
   } else if (cardsInPlay.length <= 1) {
@@ -64,25 +58,21 @@ var checkForMatch = function (cardId) {
     setTimeout(correctMessage, 100);
   } else {
     setTimeout(incorrectMessage, 100);
-    //domsInPlay[0].setAttribute('src','images/back.png');
-    //domsInPlay[1].setAttribute('src','images/back.png');
   }
   cardsInPlay = [];
-  domsInPlay = [];
 };
 
-
+//FLIP CARD FUNCTION
 var flipCard = function () {
   var cardId = this.getAttribute('data-id');
-  //console.log(cardId);
   console.log('User flipped ' + cards[cardId].rank);
   cardsInPlay.push(cards[cardId]);
-  domsInPlay.push(this);
   this.setAttribute('src', cards[cardId].cardImage);
   checkForMatch();
 };
 
 
+//CREATE BOARD FUNCTION
 var gameBoard = document.getElementById('game-board');
 
 var createBoard = function () {
@@ -96,6 +86,7 @@ var createBoard = function () {
   }
 };
 
+//LOAD THE GAME BOARD ONTO THE PAGE
 createBoard();
 
 
@@ -103,5 +94,6 @@ createBoard();
 var resetPage = function() {
   location.reload();
 };
+
 var resetButton = document.querySelector('button');
 resetButton.addEventListener('click', resetPage);
